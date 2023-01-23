@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 5000;
+const jwt = require('jsonweb')
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+
+//require('crypto').randomBytes(64).toString("hex")
 
 require('dotenv').config()
 //2 middleware
@@ -20,6 +23,11 @@ async function run() {
     try {
         const serviceCollection = client.db('geniusCar').collection('services')
         const orderCollection = client.db('geniusCar').collection('orders')
+
+
+        //jwt token implementation
+
+
 
         //load all data
         app.get('/services', async (req, res) => {
