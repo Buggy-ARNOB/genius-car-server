@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 5000;
-const jwt = require('jsonweb')
+const jwt = require('jsonwebtoken')
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 //require('crypto').randomBytes(64).toString("hex")
@@ -26,8 +26,11 @@ async function run() {
 
 
         //jwt token implementation
-
-
+        app.post('/jwt', async (req, res) => {
+            const user = req.body
+            console.log(user);
+        })
+        //end jwt
 
         //load all data
         app.get('/services', async (req, res) => {
