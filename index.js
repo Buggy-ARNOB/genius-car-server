@@ -73,7 +73,7 @@ async function run() {
             const user = req.body
             console.log(user);
             //user er data will be used as payload
-            const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5' })
+            const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1hr' })
             res.send({ token })
         })
         //end jwt
@@ -123,7 +123,7 @@ async function run() {
         })
 
 
-        app.patch('/orders/:id', async (req, res) => {
+        app.patch('/orders/:id', verifyJWT, async (req, res) => {
             const id = req.params.id;
             const status = req.body.status
             const query = { _id: ObjectId(id) };
@@ -138,7 +138,7 @@ async function run() {
         })
 
 
-        app.delete('/orders/:id', async (req, res) => {
+        app.delete('/orders/:id', verifyJWT, async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await orderCollection.deleteOne(query)
